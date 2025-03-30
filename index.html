@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Color Speedometers</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .dashboard {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .gauge-container {
+            width: 200px;
+            height: 200px;
+            position: relative;
+            margin-bottom: 30px;
+        }
+        .gauge-title {
+            position: absolute;
+            top: -25px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-weight: bold;
+            color: #444;
+        }
+        .gauge {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+            background: #e0e0e0;
+        }
+        .gauge-mask {
+            width: 80%;
+            height: 80%;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            z-index: 3;
+        }
+        .gauge-arc {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            clip: rect(0, 100px, 200px, 0);
+            transform: rotate(0deg);
+            transition: transform 0.5s ease-out;
+        }
+        .gauge-pointer {
+            width: 4px;
+            height: 90px;
+            background: #333;
+            position: absolute;
+            top: 10px;
+            left: 98px;
+            transform-origin: bottom center;
+            transform: rotate(-90deg);
+            transition: transform 0.5s ease-out;
+            z-index: 2;
+        }
+        .gauge-labels {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+        .gauge-label {
+            position: absolute;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dynamic Color Speedometers</h1>
+    <div class="dashboard">
+        <!-- Speedometer 1 -->
+        <div class="gauge-container">
+            <div class="gauge-title">Table 1</div>
+            <div class="gauge">
+                <div class="gauge-arc" id="gauge1-arc"></div>
+                <div class="gauge-pointer" id="gauge1-pointer"></div>
+                <div class="gauge-mask" id="gauge1-value">0</div>
+                <div class="gauge-labels">
+                    <div class="gauge-label" style="bottom: 10px; left: 50%; transform: translateX(-50%);">0</div>
+                    <div class="gauge-label" style="bottom: 60px; left: 20px;">25</div>
+                    <div class="gauge-label" style="bottom: 150px; left: 10px;">50</div>
+                    <div class="gauge-label" style="bottom: 60px; right: 20px;">75</div>
+                    <div class="gauge-label" style="bottom: 10px; right: 50%; transform: translateX(50%);">100</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Speedometer 2 -->
+        <div class="gauge-container">
+            <div class="gauge-title">Table 2</div>
+            <div class="gauge">
+                <div class="gauge-arc" id="gauge2-arc"></div>
+                <div class="gauge-pointer" id="gauge2-pointer"></div>
+                <div class="gauge-mask" id="gauge2-value">0</div>
+                <div class="gauge-labels">
+                    <div class="gauge-label" style="bottom: 10px; left: 50%; transform: translateX(-50%);">0</div>
+                    <div class="gauge-label" style="bottom: 60px; left: 20px;">25</div>
+                    <div class="gauge-label" style="bottom: 150px; left: 10px;">50</div>
+                    <div class="gauge-label" style="bottom: 60px; right: 20px;">75</div>
+                    <div class="gauge-label" style="bottom: 10px; right: 50%; transform: translateX(50%);">100</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Speedometer 3 -->
+        <div class="gauge-container">
+            <div class="gauge-title">Table 3</div>
+            <div class="gauge">
+                <div class="gauge-arc" id="gauge3-arc"></div>
+                <div class="gauge-pointer" id="gauge3-pointer"></div>
+                <div class="gauge-mask" id="gauge3-value">0</div>
+                <div class="gauge-labels">
+                    <div class="gauge-label" style="bottom: 10px; left: 50%; transform: translateX(-50%);">0</div>
+                    <div class="gauge-label" style="bottom: 60px; left: 20px;">25</div>
+                    <div class="gauge-label" style="bottom: 150px; left: 10px;">50</div>
+                    <div class="gauge-label" style="bottom: 60px; right: 20px;">75</div>
+                    <div class="gauge-label" style="bottom: 10px; right: 50%; transform: translateX(50%);">100</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Speedometer 4 -->
+        <div class="gauge-container">
+            <div class="gauge-title">Table 4</div>
+            <div class="gauge">
+                <div class="gauge-arc" id="gauge4-arc"></div>
+                <div class="gauge-pointer" id="gauge4-pointer"></div>
+                <div class="gauge-mask" id="gauge4-value">0</div>
+                <div class="gauge-labels">
+                    <div class="gauge-label" style="bottom: 10px; left: 50%; transform: translateX(-50%);">0</div>
+                    <div class="gauge-label" style="bottom: 60px; left: 20px;">25</div>
+                    <div class="gauge-label" style="bottom: 150px; left: 10px;">50</div>
+                    <div class="gauge-label" style="bottom: 60px; right: 20px;">75</div>
+                    <div class="gauge-label" style="bottom: 10px; right: 50%; transform: translateX(50%);">100</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize gauges with colors
+        function initGauges() {
+            // Create gradient for each gauge
+            const colors = [
+                {id: 'gauge1-arc', colors: ['#00ff00', '#ffff00', '#ff0000']}, // Green to yellow to red
+                {id: 'gauge2-arc', colors: ['#00ffff', '#0066ff', '#0000ff']}, // Cyan to blue
+                {id: 'gauge3-arc', colors: ['#ff00ff', '#ff0066', '#ff0000']}, // Magenta to red
+                {id: 'gauge4-arc', colors: ['#00ff00', '#00cc00', '#009900']}  // Green shades
+            ];
+            
+            colors.forEach(gauge => {
+                const arc = document.getElementById(gauge.id);
+                const gradient = `linear-gradient(to right, ${gauge.colors.join(', ')})`;
+                arc.style.background = gradient;
+            });
+        }
+
+        // Function to update a gauge
+        function updateGauge(gaugeNum, value) {
+            const arc = document.getElementById(`gauge${gaugeNum}-arc`);
+            const pointer = document.getElementById(`gauge${gaugeNum}-pointer`);
+            const valueDisplay = document.getElementById(`gauge${gaugeNum}-value`);
+            
+            // Ensure value is between 0 and 100
+            value = Math.max(0, Math.min(100, value));
+            
+            // Calculate angle (0% = 0deg, 100% = 180deg)
+            const angle = 180 * value / 100;
+            
+            // Update arc rotation (this makes the color fill move)
+            arc.style.transform = `rotate(${angle}deg)`;
+            
+            // Update pointer position
+            pointer.style.transform = `rotate(${angle - 90}deg)`;
+            
+            // Update displayed value
+            valueDisplay.textContent = value;
+        }
+
+        // Function to fetch the latest data from the server
+        async function fetchLatestData() {
+            try {
+                const response = await fetch('/latest-data');
+                const data = await response.json();
+                
+                // Update all gauges with the new data
+                updateGauge(1, data.table1);
+                updateGauge(2, data.table2);
+                updateGauge(3, data.table3);
+                updateGauge(4, data.table4);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+
+        // Initialize gauges when page loads
+        window.onload = function() {
+            initGauges();
+            
+            // Fetch data immediately
+            fetchLatestData();
+            
+            // Set up periodic data fetching (every second)
+            setInterval(fetchLatestData, 1000);
+        };
+    </script>
+</body>
+</html>
